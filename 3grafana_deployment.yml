@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grafana
+    project: grafana
+  name: grafana
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - secretRef:
+            name: grafana-creds
+        volumeMounts:
+        - mountPath: /etc/grafana/provisioning/datasources/influxdb-datasource.yml
+          name: grafana-config
+          readOnly: true
+          subPath: influxdb-datasource.yml
+        - mountPath: /etc/grafana/provisioning/dashboards/grafana-dashboard-provider.yml
+          name: grafana-config
+          readOnly: true
+          subPath: grafana-dashboard-provider.yml
+      volumes:
+      - configMap:
+          name: grafana-config
+        name: grafana-config
+        

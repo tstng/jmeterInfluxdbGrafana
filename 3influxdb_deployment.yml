@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: influxdb
+    project: grafana
+  name: influxdb
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      containers:
+      - name: influxdb
+        image: influxdb:alpine
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - secretRef:
+            name: influxdb-creds
+        volumeMounts:
+          - mountPath: /var/lib/influxdb
+            name: var-lib-influxdb
+      volumes:
+      - name: var-lib-influxdb
+        persistentVolumeClaim:
+          claimName: influxdb
