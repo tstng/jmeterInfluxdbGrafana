@@ -32,6 +32,10 @@ spec:
           name: grafana-config
           readOnly: true
           subPath: grafana-dashboard-provider.yml
+        - mountPath: /var/lib/grafana/dashboards/ApacheJMeterDashboardusingCoreInfluxdbBackendListenerClient.json
+          name: grafana-config
+          readOnly: true
+          subPath: ApacheJMeterDashboardusingCoreInfluxdbBackendListenerClient.json
       volumes:
       - configMap:
           name: grafana-config

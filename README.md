@@ -1,6 +1,6 @@
 # Grafana con InfluxDB para JMeter
 Usar JMeter con lenguaje en Inglés, preferiblemente. Al parecer hay bugs cuando los test plans son creados en JMeter en español.
-Luego de desplegar InfluxDB en nuestro cluster de K8s, se deben ejecutar los siguientes comandos:
+<br>Luego de desplegar InfluxDB en nuestro cluster de K8s, se deben ejecutar los siguientes comandos:
 
 1. Nos conectamos a la consola de influx dentro del POD de InfluxDB:
 ```
@@ -48,13 +48,15 @@ Emplearemos el comando:
 
 [Deploy InfluxDB and Grafana on Kubernetes to collect Twitter stats](https://opensource.com/article/19/2/deploy-influxdb-grafana-kubernetes)
 
-## Conectar JMeter con InfluxDB
+[Aprovisionamiento de Grafana mediante configFiles](https://grafana.com/docs/grafana/latest/administration/provisioning/)
+
+## Dashboards JMeter con InfluxDB
+[Apache JMeter Dashboard using Core InfluxdbBackendListenerClient](https://grafana.com/grafana/dashboards/5496)
 [JMeter Load Test](https://grafana.com/grafana/dashboards/1152)
+[Mas dashboards de JMeter para Grafana](https://grafana.com/grafana/dashboards?search=jmeter)
 
-## Tableros de JMeter para Grafana
-[Dashboards JMeter](https://grafana.com/grafana/dashboards?search=jmeter)
-
-# Conclusiones
+# Consideraciones
 - Los datos se grafican en tiempo real, mientras la prueba se ejecuta.
 - El dashboard depende del BackendListener configurado en el TestPlan.
-- 
+- Algunos dashboards dependen de plugins `.jar` que se deben de instalar en la ruta `/lib/ext/`.
+- la carpeta `dashboards_JMeter` contiene el backup de un dashboard para JMeter, pero este ya se encuentra volcado dentro del manifiesto `1grafana_configmap.yml`
